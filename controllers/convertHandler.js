@@ -105,23 +105,23 @@ function ConvertHandler() {
 
     initUnit = initUnit.toLowerCase();
 
-    let resutl;
+    let result;
 
     if (initUnit == "gal") {
-      resutl = initNum * galToL;
+      result = initNum * galToL;
     } else if (initUnit == "l") {
-      resutl = initNum / galToL;
+      result = initNum / galToL;
     } else if (initUnit == "lbs") {
-      resutl = initNum * lbsToKg;
+      result = initNum * lbsToKg;
     } else if (initUnit == "kg") {
-      resutl = initNum / lbsToKg;
+      result = initNum / lbsToKg;
     } else if (initUnit == "mi") {
-      resutl = initNum * miToKm;
+      result = initNum * miToKm;
     } else if (initUnit == "km") {
-      resutl = initNum / miToKm;
+      result = initNum / miToKm;
     }
 
-    return Number(resutl).toFixed(5);
+    return parseFloat(Number(result).toFixed(5));
   };
 
   this.getString = function (initNum, initUnit, returnNum, returnUnit) {
