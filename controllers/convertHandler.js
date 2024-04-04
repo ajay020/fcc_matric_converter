@@ -1,7 +1,7 @@
 function extractNum(input) {
   let units = input.match(/[a-zA-Z]+/);
   if (!units) {
-    return "";
+    return parseFloat(input);
   }
 
   let unit = units[0];
@@ -31,7 +31,7 @@ function extractNum(input) {
       !isNaN(parseInt(decimalPart[0])) &&
       !isNaN(parseInt(decimalPart[1]))
     ) {
-      number = parseFloat(decimalPart);
+      number = parseFloat(numberPart);
     }
   } else if (numberPart.includes("/")) {
     let fractionParts = numberPart.split("/");
@@ -47,8 +47,18 @@ function extractNum(input) {
   } else {
     number = parseInt(numberPart);
   }
+  console.log({ number });
   return number;
 }
+
+let units = {
+  gal: "L",
+  mi: "km",
+  lbs: "kg",
+  l: "gal",
+  km: "mi",
+  kg: "lbs",
+};
 
 function ConvertHandler() {
   this.getNum = function (input) {
@@ -67,19 +77,10 @@ function ConvertHandler() {
     } else {
       initUnit = initUnit.toLowerCase();
     }
-    return initUnit;
+    return this.getReturnUnit(initUnit) ? initUnit : "";
   };
 
   this.getReturnUnit = function (initUnit) {
-    let units = {
-      gal: "L",
-      mi: "km",
-      lbs: "kg",
-      l: "gal",
-      km: "mi",
-      kg: "lbs",
-    };
-
     return units[initUnit.toLowerCase()];
   };
 
@@ -94,7 +95,6 @@ function ConvertHandler() {
     };
 
     unit = unit.toLowerCase();
-
     return fullUnits[unit];
   };
 
