@@ -56,7 +56,13 @@ function ConvertHandler() {
   };
 
   this.getUnit = function (input) {
-    return getUnitAndNumer(input).unit;
+    let initUnit = getUnitAndNumer(input).unit;
+    if (initUnit == "l" || initUnit == "L") {
+      initUnit = "L";
+    } else {
+      initUnit = getUnitAndNumer(input).unit.toLowerCase();
+    }
+    return initUnit;
   };
 
   this.getReturnUnit = function (initUnit) {
