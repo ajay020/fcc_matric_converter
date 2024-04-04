@@ -1,66 +1,71 @@
-function getUnitAndNumer(input) {
-  let numIndex = -1;
-
-  for (let i = input.length - 1; i >= 0; i--) {
-    if (isNaN(parseInt(input[i]))) {
-      continue;
-    }
-    numIndex = i;
-    break;
+function extractNum(input) {
+  let units = input.match(/[a-zA-Z]+/);
+  if (!units) {
+    return "";
   }
 
-  let num = input.slice(0, numIndex + 1);
-  let unit = input.slice(numIndex + 1);
+  let unit = units[0];
+  // Extract the number part
+  let numberPart = input.replace(unit, "").trim();
 
-  if (num.length == 0) {
-    num = 1;
-  } else if (num.includes(".") && num.includes("/")) {
-    let fractionParts = num.split("/");
+  //   console.log({ numberPart, unit, units });
+  let number;
+
+  if (numberPart.length == 0) {
+    number = 1;
+  } else if (!numberPart.includes(".") && !numberPart.includes("/")) {
+    number = parseInt(numberPart);
+  } else if (numberPart.includes(".") && numberPart.includes("/")) {
+    let fractionParts = numberPart.split("/");
     if (
       fractionParts.length == 2 &&
       !isNaN(parseFloat(fractionParts[0])) &&
       !isNaN(parseFloat(fractionParts[1]))
     ) {
-      num = parseFloat(fractionParts[0]) / parseFloat(fractionParts[1]);
+      number = parseFloat(fractionParts[0]) / parseFloat(fractionParts[1]);
     }
-  } else if (num.includes(".")) {
-    let decimalPart = num.split(".");
+  } else if (numberPart.includes(".")) {
+    let decimalPart = numberPart.split(".");
     if (
       decimalPart.length == 2 &&
       !isNaN(parseInt(decimalPart[0])) &&
       !isNaN(parseInt(decimalPart[1]))
     ) {
-      num = parseFloat(decimalPart);
+      number = parseFloat(decimalPart);
     }
-  } else if (num.includes("/")) {
-    let fractionParts = num.split("/");
+  } else if (numberPart.includes("/")) {
+    let fractionParts = numberPart.split("/");
     if (
       fractionParts.length === 2 &&
       !isNaN(parseInt(fractionParts[0])) &&
       !isNaN(parseInt(fractionParts[1]))
     ) {
-      num = parseInt(fractionParts[0]) / parseInt(fractionParts[1]);
+      number = parseInt(fractionParts[0]) / parseInt(fractionParts[1]);
     } else {
-      console.log("Invalid format: Cannot extract number");
+      console.log("Invalid format: Cannot extract numberPartber");
     }
   } else {
-    num = parseInt(num);
+    number = parseInt(numberPart);
   }
-
-  return { num, unit };
+  return number;
 }
 
 function ConvertHandler() {
   this.getNum = function (input) {
-    return getUnitAndNumer(input).num;
+    return extractNum(input);
   };
 
   this.getUnit = function (input) {
-    let initUnit = getUnitAndNumer(input).unit;
+    let units = input.match(/[a-zA-Z]+/);
+    if (!units) {
+      return "";
+    }
+
+    let initUnit = units[0];
     if (initUnit == "l" || initUnit == "L") {
       initUnit = "L";
     } else {
-      initUnit = getUnitAndNumer(input).unit.toLowerCase();
+      initUnit = initUnit.toLowerCase();
     }
     return initUnit;
   };
