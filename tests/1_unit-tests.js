@@ -27,10 +27,8 @@ suite("convertHandler", function () {
   test("should correctly read each valid input unit.", function () {
     assert.equal(convertHandler.getUnit("2km"), "km");
   });
-  describe("#getUnit", function () {
-    test("should correctly return an error for an invalid input unit", function () {
-      assert.equal(convertHandler.getUnit("12invalid"), "");
-    });
+  test("should correctly return an error for an invalid input unit", function () {
+    assert.equal(convertHandler.getUnit("12invalid"), "");
   });
 
   test("should return the correct return unit for each valid input unit", function () {
