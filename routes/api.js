@@ -26,6 +26,10 @@ module.exports = function (app) {
       return res.send("invalid unit");
     }
 
+    if (!initNum && !initUnit && !returnUnit) {
+      return res.send("invalid number and unit");
+    }
+
     let str = convertHandler.getString(
       initNum,
       initUnit,
