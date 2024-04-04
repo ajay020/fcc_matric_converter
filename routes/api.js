@@ -18,16 +18,16 @@ module.exports = function (app) {
 
     console.log(initNum, initUnit);
 
+    if (!initNum && !returnUnit) {
+      return res.send("invalid number and unit");
+    }
+
     if (!initNum) {
       return res.send("invalid number");
     }
 
     if (!initUnit || !returnUnit) {
       return res.send("invalid unit");
-    }
-
-    if (!initNum && !initUnit && !returnUnit) {
-      return res.send("invalid number and unit");
     }
 
     let str = convertHandler.getString(
