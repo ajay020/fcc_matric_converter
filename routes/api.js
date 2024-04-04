@@ -6,8 +6,11 @@ const ConvertHandler = require("../controllers/convertHandler.js");
 module.exports = function (app) {
   app.route("/api/convert").get(function (req, res) {
     let input = req.query.input;
+
+    console.log({ input });
+
     if (!input) {
-      return res.status(400).send("invalid unit");
+      return res.status(200).send("invalid unit");
     }
 
     let convertHandler = new ConvertHandler();
