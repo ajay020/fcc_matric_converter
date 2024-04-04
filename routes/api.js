@@ -7,7 +7,7 @@ module.exports = function (app) {
   app.route("/api/convert").get(function (req, res) {
     let input = req.query.input;
     if (!input) {
-      return res.send("invalid unit");
+      return res.status(400).send("invalid unit");
     }
 
     let convertHandler = new ConvertHandler();
@@ -16,17 +16,38 @@ module.exports = function (app) {
     let returnUnit = convertHandler.getReturnUnit(initUnit);
     let returnNum = convertHandler.convert(initNum, initUnit);
 
-    console.log({ initNum, initUnit });
+    // console.log({ initNum, initUnit, returnNum, returnUnit });
 
     if (!initNum && !returnUnit) {
-      return res.send("invalid number and unit");
+      console.log("INVALID NUM AND UNIT", {
+        initNum,
+        initUnit,
+        returnNum,
+        returnUnit,
+      });
+
+      return res.status(200).send("invalid number and unit");
     }
 
     if (!initNum) {
-      return res.send("invalid number");
+      console.log("INVALID INIT NUm", {
+        initNum,
+        initUnit,
+        returnNum,
+        returnUnit,
+      });
+
+      return res.status(200).send("invalid number");
     }
 
     if (!initUnit || !returnUnit) {
+      console.log("INVALID INIT UNIT", {
+        initNum,
+        initUnit,
+        returnNum,
+        returnUnit,
+      });
+
       return res.send("invalid unit");
     }
 

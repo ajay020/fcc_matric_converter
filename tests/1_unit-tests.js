@@ -1,12 +1,14 @@
 const chai = require("chai");
 let assert = chai.assert;
+let expect = chai.expect;
 const ConvertHandler = require("../controllers/convertHandler.js");
 
 let convertHandler = new ConvertHandler();
 
 suite("convertHandler", function () {
-  test("should correctly read a whole number input", function () {
+  test("should correctly read a whole number input.", function () {
     assert.equal(convertHandler.getNum("12gal"), 12);
+    // expect(convertHandler.getNum("12gal")).equal(12);
   });
   test("should correctly read a decimal number input", function () {
     assert.equal(convertHandler.getNum("1.5km"), 1.5);
@@ -48,6 +50,8 @@ suite("convertHandler", function () {
     assert.equal(convertHandler.spellOutUnit("lbs"), "pounds");
     assert.equal(convertHandler.spellOutUnit("kg"), "kilograms");
   });
+
+  // convert
 
   test("should correctly convert gal to L", function () {
     assert.approximately(convertHandler.convert(1, "gal"), 3.78541, 0.1);
